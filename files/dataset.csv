@@ -2,20 +2,20 @@ F;Filme A;2000-10-20;4.2;90000;Diretor 1;182
 F;Filme B;2012-09-10;4.3;320020;Diretor 2;201
 F;Filme C;1999-01-21;4.9;100000;Diretor 1;166
 F;Filme D;1997-04-01;3.4;1000;Diretor 4;175
-U;Usuário 1;usuario1@leitor.com
-U;Usuário 2;usuario2@leitor.com
-U;Usuário 3;usuario3@leitor.com
+U;Espectador 1;espectador1@leitor.com
+U;Espectador 2;espectador2@leitor.com
+U;Espectador 3;espectador3@leitor.com
 L;Livro A;1233-01-02;3.1;190000;Autor 1;362
 L;Livro B;2000-12-14;4.7;20020;Autor 2;421
 L;Livro C;1899-01-20;4.4;1000;Autor 1;562
 L;Livro D;1986-04-10;4.2;4000;Autor 4;124
-MU;usuario1@leitor.com;Livro A
-MU;usuario2@leitor.com;Livro A
-MU;usuario1@leitor.com;Filme B
-MU;usuario1@leitor.com;Filme C
-MU;usuario2@leitor.com;Livro A
-MU;usuario3@leitor.com;Filme B
-MU;usuario3@leitor.com;Livro C
-MU;usuario3@leitor.com;Livro A
-MU;usuario2@leitor.com;Filme B
-MU;usuario1@leitor.com;Filme C
+MU;espectador@leitor.com;Livro A
+MU;espectador@leitor.com;Livro A
+MU;espectador1@leitor.com;Filme B
+MU;espectador1@leitor.com;Filme C
+MU;espectador2@leitor.com;Livro A
+MU;espectador3@leitor.com;Filme B
+MU;espectador3@leitor.com;Livro C
+MU;espectador3@leitor.com;Livro A
+MU;espectador2@leitor.com;Filme B
+MU;espectador1@leitor.com;Filme C

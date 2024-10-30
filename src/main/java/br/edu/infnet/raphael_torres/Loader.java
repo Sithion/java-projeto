@@ -6,10 +6,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.raphael_torres.model.domain.Midia;
-import br.edu.infnet.raphael_torres.model.domain.Usuario;
+import br.edu.infnet.raphael_torres.model.domain.Espectador;
 import br.edu.infnet.raphael_torres.model.domain.midias.Filme;
 import br.edu.infnet.raphael_torres.model.domain.midias.Livro;
-import br.edu.infnet.raphael_torres.service.UsuarioService;
+import br.edu.infnet.raphael_torres.service.EspectadorService;
+import br.edu.infnet.raphael_torres.service.MidiaService;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,7 +23,10 @@ import java.util.List;
 public class Loader implements ApplicationRunner {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private EspectadorService espectadorService;
+
+    @Autowired
+    private MidiaService midiaService;
 
     private LocalDate convertDate(String value) {
         String[] values = value.split("-");
@@ -35,7 +39,7 @@ public class Loader implements ApplicationRunner {
         BufferedReader leitura = new BufferedReader(file);
 
         String linha = leitura.readLine();
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+        List<Espectador> espectadores = new ArrayList<Espectador>();
         List<Midia> midias = new ArrayList<Midia>();
         while (linha != null) {
             String[] campos = linha.split(";");
@@ -48,6 +52,7 @@ public class Loader implements ApplicationRunner {
                     filme.setVendasPorAno(Integer.parseInt(campos[4]));
                     filme.setDiretor(campos[5]);
                     filme.setDuracao(Integer.parseInt(campos[6]));
+                    midiaService.create(filme);
                     midias.add(filme);
                     break;
                 }
@@ -59,34 +64,34 @@ public class Loader implements ApplicationRunner {
                     livro.setVendasPorAno(Integer.parseInt(campos[4]));
                     livro.setAutor(campos[5]);
                     livro.setPaginas(Integer.parseInt(campos[6]));
-
+                    midiaService.create(livro);
                     midias.add(livro);
                     break;
                 }
                 case "U": {// Usuário
-                    Usuario usuario = new Usuario();
-                    usuario.setNome(campos[1]);
-                    usuario.setEmail(campos[2]);
-                    usuarios.add(usuario);
+                    Espectador espectador = new Espectador();
+                    espectador.setNome(campos[1]);
+                    espectador.setEmail(campos[2]);
+                    espectadores.add(espectador);
                     break;
                 }
-                case "MU": // Usuário
-                    String usuarioId = campos[1];
-                    String mediaId = campos[2];
+                case "MU": // EspectadorXMidia
+                    String espectadorId = campos[1];
+                    String midiaId = campos[2];
 
-                    Usuario usuario = usuarios.stream()
-                            .filter(u -> u.getEmail().equals(usuarioId))
+                    Espectador espectador = espectadores.stream()
+                            .filter(u -> u.getEmail().equals(espectadorId))
                             .findFirst()
                             .orElse(null);
                     Midia midia = midias.stream()
-                            .filter(m -> m.getNome().equals(mediaId))
+                            .filter(m -> m.getNome().equals(midiaId))
                             .findFirst()
                             .orElse(null);
-                    if (usuario != null && midia != null) {
-                        List<Midia> midiasUsuario = usuario.getMidias();
+                    if (espectador != null && midia != null) {
+                        var midiasEspectador = espectador.getMidias();
 
-                        midiasUsuario.add(midia);
-                        usuario.setMidias(midiasUsuario);
+                        midiasEspectador.add(midia);
+                        espectador.setMidias(midiasEspectador);
                     }
 
                     break;
@@ -96,8 +101,8 @@ public class Loader implements ApplicationRunner {
             }
             linha = leitura.readLine();
         }
-        for (Usuario usuario : usuarios) {
-            usuarioService.add(usuario);            
+        for (Espectador espectador : espectadores) {
+            espectadorService.create(espectador);            
         }
         leitura.close();
     }
