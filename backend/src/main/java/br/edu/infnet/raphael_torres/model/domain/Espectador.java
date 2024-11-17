@@ -57,4 +57,9 @@ public class Espectador implements INamedModel {
         inverseJoinColumns = @JoinColumn(name = "midia_id")
     )
     private Set<Midia> midias = new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idEndereco")
+    private Endereco endereco;
+
 }
