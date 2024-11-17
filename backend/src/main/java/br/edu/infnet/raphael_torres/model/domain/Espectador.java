@@ -20,6 +20,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,11 +36,18 @@ public class Espectador implements INamedModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank(message = "O nome do vendedor é obrigatório.")
+	@Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres.")
     @Column(nullable = false)
     private String nome;
     
+    @NotBlank(message = "O nome do espectador é obrigatório.")
+	@Email(message = "O e-mail informado é inválido")
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private boolean ativo = false;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonBackReference

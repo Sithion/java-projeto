@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:h2:tcp://db/develop;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+  #     SPRING_DATASOURCE_USERNAME: sa
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:tcp://db/develop;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+      SPRING_DATASOURCE_USERNAME: sa
+  db:
+    image: jesperdj/h2
+    ports:
+      - "8082:8082"

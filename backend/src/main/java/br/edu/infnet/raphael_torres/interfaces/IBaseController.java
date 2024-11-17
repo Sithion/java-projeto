@@ -8,4 +8,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface IBaseController<TEntity> {
     public ResponseEntity<Void> create(TEntity entidade);
     public List<TEntity> list(@RequestParam(name = "nome", required = false) String nome);
+    public TEntity findById(String id);
 }

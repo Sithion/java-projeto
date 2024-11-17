@@ -2,8 +2,12 @@ package br.edu.infnet.raphael_torres.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
+import br.edu.infnet.raphael_torres.Utils;
 import br.edu.infnet.raphael_torres.interfaces.IBaseService;
+import br.edu.infnet.raphael_torres.interfaces.INamedModel;
 import br.edu.infnet.raphael_torres.repository.BaseRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +16,6 @@ public abstract class BaseService<INamedModel> implements IBaseService<INamedMod
 
     private final BaseRepository<INamedModel> repository;
 
-    @Override
     public void create(INamedModel entidade) {
         repository.save(entidade);
     }
@@ -21,9 +24,17 @@ public abstract class BaseService<INamedModel> implements IBaseService<INamedMod
         return repository.findByNomeContainingIgnoreCase(nome);
     }
 
-    @Override
     public List<INamedModel> list() {
         return (ArrayList<INamedModel>) repository.findAll();
+    }
+
+    public INamedModel findById(String id) {
+        boolean vaidUUID = Utils.isValidUUID(id);
+        Optional<INamedModel> item = vaidUUID ? repository.findById(UUID.fromString(id)) : null;
+        if(item == null) {
+            throw new Error("Entidade não encontrada");
+        }
+        return (INamedModel) item;
     }
 
 }

@@ -33,7 +33,7 @@ public abstract class Midia implements INamedModel {
 
     @Column(nullable = false)
     private int vendasPorAno;
-
+    
     @ManyToMany(mappedBy = "midias", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private Set<Espectador> espectadores = new HashSet<Espectador>();

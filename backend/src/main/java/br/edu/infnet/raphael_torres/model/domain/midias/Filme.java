@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "filmes")
 public class Filme extends Midia {
 
-     @Column(nullable = false)
+    @Column(nullable = false)
     private String diretor;
 
     @Column(nullable = false)
