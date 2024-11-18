@@ -1,12 +1,16 @@
 package br.edu.infnet.raphael_torres.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.raphael_torres.model.domain.Espectador;
+import br.edu.infnet.raphael_torres.model.domain.Midia;
 import br.edu.infnet.raphael_torres.repository.EspectadorRepository;
 import br.edu.infnet.raphael_torres.repository.MidiaRepository;
 
@@ -22,9 +26,24 @@ public class EspectadorService extends BaseService<Espectador> {
             super(espectadorRepository);
       }
 
-      @Override
-      public void create(Espectador espectador) {
-            midiaRepository.saveAll(espectador.getMidias());
-            espectadorRepository.save(espectador);
+      public void adicionarMidia(UUID espectadorId, UUID midiaId) {
+            Optional<Espectador> espectador = espectadorRepository.findById(espectadorId);
+            Optional<Midia> midia = midiaRepository.findById(midiaId);
+            Set<Midia> midiasDoEspectador = espectador.get().getMidias();
+            midiasDoEspectador.add(midia.get());
+            espectador.get().setMidias(midiasDoEspectador);
+            espectadorRepository.save(espectador.get());
+           
       }
+      public void removerMidia(UUID espectadorId, UUID midiaId) {
+            Optional<Espectador> espectador = espectadorRepository.findById(espectadorId);
+            Optional<Midia> midia = midiaRepository.findById(midiaId);
+            Set<Midia> midiasDoEspectador = espectador.get().getMidias();
+            midiasDoEspectador.remove(midia.get());
+            espectador.get().setMidias(midiasDoEspectador);
+            espectadorRepository.save(espectador.get());
+           
+      }
+
+      
 }

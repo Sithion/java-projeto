@@ -51,7 +51,7 @@ public class Loader implements ApplicationRunner {
                     filme.setVendasPorAno(Integer.parseInt(campos[4]));
                     filme.setDiretor(campos[5]);
                     filme.setDuracao(Integer.parseInt(campos[6]));
-                    midiaService.create(filme);
+                    midiaService.createOrUpdate(filme);
                     midias.add(filme);
                     break;
                 }
@@ -62,7 +62,7 @@ public class Loader implements ApplicationRunner {
                     livro.setVendasPorAno(Integer.parseInt(campos[4]));
                     livro.setAutor(campos[5]);
                     livro.setPaginas(Integer.parseInt(campos[6]));
-                    midiaService.create(livro);
+                    midiaService.createOrUpdate(livro);
                     midias.add(livro);
                     break;
                 }
@@ -100,7 +100,7 @@ public class Loader implements ApplicationRunner {
             linha = leitura.readLine();
         }
         for (Espectador espectador : espectadores) {
-            espectadorService.create(espectador);            
+            espectadorService.createOrUpdate(espectador);            
         }
         leitura.close();
     }

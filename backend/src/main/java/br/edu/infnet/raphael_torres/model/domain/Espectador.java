@@ -37,13 +37,13 @@ public class Espectador implements INamedModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank(message = "O nome do vendedor é obrigatório.")
-	@Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres.")
+    @NotBlank(message = "O nome do espectador é obrigatório.")
+	@Size(min = 3, max = 50, message = "O nome do espectador deve ter entre 3 e 50 caracteres.")
     @Column(nullable = false)
     private String nome;
     
-    @NotBlank(message = "O nome do espectador é obrigatório.")
-	@Email(message = "O e-mail informado é inválido")
+    @NotBlank(message = "O email do espectador é obrigatório.")
+	@Email(message = "O email do espectador informado é inválido")
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -51,13 +51,12 @@ public class Espectador implements INamedModel {
     private boolean ativo = false;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JsonBackReference
     @JoinTable(
         name = "espectador_midias",
         joinColumns = @JoinColumn(name = "espectador_id"),
         inverseJoinColumns = @JoinColumn(name = "midia_id")
     )
-    private Set<Midia> midias = new HashSet<>();
+    private Set<Midia> midias = new HashSet<Midia>();
 
     @OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "idEndereco")

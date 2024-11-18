@@ -11,6 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,20 +28,25 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 	
+    @NotBlank(message = "O campo 'cep' é obrigatório.")
     @Column(nullable = false)
 	private String cep;
 
-    @Column(nullable = false)
-	private String logradouro;
+    @NotBlank(message = "O campo 'logradouro' é obrigatório.")
+    @Size(max = 100, message = "O campo 'logradouro' não pode ter mais de 100 caracteres.")
+    private String logradouro;
 
-	private String complemento;
+    @NotBlank(message = "O campo 'cidade' é obrigatório.")
+    @Size(max = 50, message = "O campo 'cidade' não pode ter mais de 50 caracteres.")
+    private String cidade;
 
-    @Column(nullable = false)
-	private String bairro;
+    @NotBlank(message = "O campo 'uf' é obrigatório.")
+    @Size(min = 2, max = 2, message = "O campo 'uf' deve ter exatamente 2 caracteres.")
+    private String uf;
 
-    @Column(nullable = false)
-	private String localidade;
-    
-    @Column(nullable = false)
-	private String uf;
+    @NotNull(message = "O campo 'numero' é obrigatório.")
+    private Integer numero;
+
+    @Size(max = 20, message = "O campo 'complemento' não pode ter mais de 20 caracteres.")
+    private String complemento;
 }
