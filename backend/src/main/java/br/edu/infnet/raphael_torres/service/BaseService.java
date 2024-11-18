@@ -9,6 +9,7 @@ import br.edu.infnet.raphael_torres.interfaces.IBaseService;
 import br.edu.infnet.raphael_torres.interfaces.INamedModel;
 import br.edu.infnet.raphael_torres.repository.BaseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 
 @RequiredArgsConstructor
 public abstract class BaseService<TModel extends INamedModel> implements IBaseService<TModel> {
@@ -29,7 +30,7 @@ public abstract class BaseService<TModel extends INamedModel> implements IBaseSe
     }
 
     public List<TModel> list() {
-        return (ArrayList<TModel>) repository.findAll();
+        return (ArrayList<TModel>) repository.findAll(Sort.by(Sort.Order.asc("nome")));
     }
 
     public TModel findById(UUID id) {

@@ -21,14 +21,14 @@ public class EspectadorController extends BaseController<Espectador>{
         super(espectadorService);
     }
 
-    @Operation(summary = "Cria novo")
+    @Operation(summary = "Adicionar midia para o coleção do espectador")
     @PostMapping("/{espectadorId}/midia/{midiaId}")
     public ResponseEntity<Void> adicionaMidia(@PathVariable String espectadorId, @PathVariable String midiaId ) {
         ((EspectadorService)service).adicionarMidia(UUID.fromString(espectadorId), UUID.fromString(midiaId));
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Cria novo")
+    @Operation(summary = "Remover midia da coleção do espectador")
     @DeleteMapping("/{espectadorId}/midia/{midiaId}")
     public ResponseEntity<Void> removerMidia(@PathVariable String espectadorId, @PathVariable String midiaId ) {
         ((EspectadorService)service).removerMidia(UUID.fromString(espectadorId), UUID.fromString(midiaId));
