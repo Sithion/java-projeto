@@ -12,5 +12,4 @@ public class MidiaController extends BaseController<Midia> {
     public MidiaController(MidiaService midiaService) {
         super(midiaService);
     }
-
 }

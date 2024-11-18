@@ -1,12 +1,12 @@
-version: "3.8"
 services:
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:h2:tcp://db/develop;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
-  #     SPRING_DATASOURCE_USERNAME: sa
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.Development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/:/app
   backend:
     build: ./backend
     ports:

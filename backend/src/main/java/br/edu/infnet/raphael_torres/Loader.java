@@ -47,7 +47,6 @@ public class Loader implements ApplicationRunner {
                 case "F": {// Filme {
                     Filme filme = new Filme();
                     filme.setNome(campos[1]);
-                    filme.setLancamento(convertDate(campos[2]));
                     filme.setMediaAvaliacao(Float.parseFloat(campos[3]));
                     filme.setVendasPorAno(Integer.parseInt(campos[4]));
                     filme.setDiretor(campos[5]);
@@ -59,7 +58,6 @@ public class Loader implements ApplicationRunner {
                 case "L": {// Livro
                     Livro livro = new Livro();
                     livro.setNome(campos[1]);
-                    livro.setLancamento(convertDate(campos[2]));
                     livro.setMediaAvaliacao(Float.parseFloat(campos[3]));
                     livro.setVendasPorAno(Integer.parseInt(campos[4]));
                     livro.setAutor(campos[5]);
