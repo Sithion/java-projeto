@@ -1,11 +1,12 @@
-# java-projeto
-Projeto de estudo (java)
+# Gerenciador e catalogo de mídias
 
-# Gerenciador e catalogo de mídias, como livros e filmes. O usuario do aplicativo, chamado de espectador, poderá associar diferentes mídias ao seu catálogo pessoal de mídias
+O usuario do aplicativo, chamado de espectador, poderá associar diferentes mídias ao seu catálogo pessoal de mídias, como livros e filmes.
 
-# Requerimentos
+## Features
 
- - [Java SDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- CRUD de Espectadores e Mídias (Livros e Filmes);
+- Validação das entidades de dominio;
+- MockData para desenvolvimento carregando automaticamente através de um loader; 
 
 # Docker
 
@@ -14,14 +15,27 @@ Se você tiver Docker instalado, execute o comando em seguida para iniciar as du
 docker-compose up --build
 ```
 
+- [frontend](http://localhost:3000)
+- [backend](http://localhost:3001/swagger-ui/index.html)
+- [H2 Console](http://localhost:8082/)
+
+![h2 console docker](image-1.png)
 
 # Frontend
 
 O projeto frontend consiste em uma aplicação WEB baseada em REACT.
 
-
+```
+### Em Desenvolvimento ##
+```
 
 # Backend
+
+## Requerimentos
+
+ - [Java SDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+ - Mavem
+ - Springboot 3.3.4
 
 O projeto backend consiste em uma aplicação API springboot (JAVA). Ela é totalmente desacoplada do frontend
 
