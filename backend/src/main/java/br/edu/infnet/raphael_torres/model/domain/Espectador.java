@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -14,9 +16,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
@@ -32,10 +31,9 @@ import lombok.Setter;
 @Entity
 @Table(name="espectadores")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Espectador implements INamedModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+@DynamicUpdate
+public class Espectador extends BaseModel implements INamedModel {
+
 
     @NotBlank(message = "O nome do espectador é obrigatório.")
 	@Size(min = 3, max = 50, message = "O nome do espectador deve ter entre 3 e 50 caracteres.")
@@ -50,7 +48,7 @@ public class Espectador implements INamedModel {
     @Column(nullable = false)
     private boolean ativo = false;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(
         name = "espectador_midias",
         joinColumns = @JoinColumn(name = "espectador_id"),
@@ -58,7 +56,7 @@ public class Espectador implements INamedModel {
     )
     private Set<Midia> midias = new HashSet<Midia>();
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "idEndereco")
     private Endereco endereco;
 

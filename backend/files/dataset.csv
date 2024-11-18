@@ -1,21 +1,21 @@
-F;Filme A;2000-10-20;4.2;90000;Diretor 1;182
-F;Filme B;2012-09-10;4.3;320020;Diretor 2;201
-F;Filme C;1999-01-21;4.9;100000;Diretor 1;166
-F;Filme D;1997-04-01;3.4;1000;Diretor 4;175
-U;Espectador 1;espectador1@leitor.com
-U;Espectador 2;espectador2@leitor.com
-U;Espectador 3;espectador3@leitor.com
-L;Livro A;1233-01-02;3.1;190000;Autor 1;362
-L;Livro B;2000-12-14;4.7;20020;Autor 2;421
-L;Livro C;1899-01-20;4.4;1000;Autor 1;562
-L;Livro D;1986-04-10;4.2;4000;Autor 4;124
-MU;espectador@leitor.com;Livro A
-MU;espectador@leitor.com;Livro A
-MU;espectador1@leitor.com;Filme B
-MU;espectador1@leitor.com;Filme C
-MU;espectador2@leitor.com;Livro A
-MU;espectador3@leitor.com;Filme B
-MU;espectador3@leitor.com;Livro C
-MU;espectador3@leitor.com;Livro A
-MU;espectador2@leitor.com;Filme B
-MU;espectador1@leitor.com;Filme C
+F;77b5c68e-58a6-4e44-9982-41b5c9cfde30;Filme A;2000-10-20;4.2;90000;Diretor 1;182
+F;4b47b805-2b11-43a1-8d44-3c2447d637de;Filme B;2012-09-10;4.3;320020;Diretor 2;201
+F;63729aeb-2e18-47b8-b90c-438e108f86ad;Filme C;1999-01-21;4.9;100000;Diretor 1;166
+F;d01bc16d-6b21-41bc-b3e2-1e91c7a2e29d;Filme D;1997-04-01;3.4;1000;Diretor 4;175
+U;f1a4af9f-536c-4912-9066-04b037f915a9;Espectador 1;espectador1@leitor.com;22775-450
+U;071dd856-82be-472f-a45d-fefb8d00b365;Espectador 2;espectador2@leitor.com
+U;dff0b942-b536-4c6d-9e74-d197812c1db2;Espectador 3;espectador3@leitor.com
+L;38138ea2-5ff7-4095-9b5d-cbcf963b6a90;Livro A;1233-01-02;3.1;190000;Autor 1;362
+L;a08e9a6a-3c57-4004-a689-14a4c129451b;Livro B;2000-12-14;4.7;20020;Autor 2;421
+L;c1c6d937-fb8b-474f-b453-2e0d8a75d5d0;Livro C;1899-01-20;4.4;1000;Autor 1;562
+L;1f17220e-e9df-4e89-8400-9ad9ac6118bc;Livro D;1986-04-10;4.2;4000;Autor 4;124
+MU;f1a4af9f-536c-4912-9066-04b037f915a9;38138ea2-5ff7-4095-9b5d-cbcf963b6a90
+MU;dff0b942-b536-4c6d-9e74-d197812c1db2;38138ea2-5ff7-4095-9b5d-cbcf963b6a90
+MU;071dd856-82be-472f-a45d-fefb8d00b365;38138ea2-5ff7-4095-9b5d-cbcf963b6a90
+MU;f1a4af9f-536c-4912-9066-04b037f915a9;a08e9a6a-3c57-4004-a689-14a4c129451b
+MU;071dd856-82be-472f-a45d-fefb8d00b365;a08e9a6a-3c57-4004-a689-14a4c129451b
+MU;dff0b942-b536-4c6d-9e74-d197812c1db2;a08e9a6a-3c57-4004-a689-14a4c129451b
+MU;f1a4af9f-536c-4912-9066-04b037f915a9;c1c6d937-fb8b-474f-b453-2e0d8a75d5d0
+MU;dff0b942-b536-4c6d-9e74-d197812c1db2;c1c6d937-fb8b-474f-b453-2e0d8a75d5d0
+
+

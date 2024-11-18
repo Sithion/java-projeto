@@ -31,6 +31,7 @@ public abstract class BaseController<TEntity> implements IBaseController<TEntity
     @GetMapping
     @Operation(summary = "Lista ou busca através do nome")
     public List<TEntity> list(@RequestParam(name = "nome", required = false) String nome) {
+        System.out.println("LISTANDO");
         return nome == null ? service.list() : service.findByNome(nome);
     }
 
