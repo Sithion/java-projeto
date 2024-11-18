@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.raphael_torres.model.domain.Midia;
+import br.edu.infnet.raphael_torres.model.domain.Endereco;
 import br.edu.infnet.raphael_torres.model.domain.Espectador;
 import br.edu.infnet.raphael_torres.model.domain.midias.Filme;
 import br.edu.infnet.raphael_torres.model.domain.midias.Livro;
@@ -17,7 +18,7 @@ import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
 
 @Component
 public class Loader implements ApplicationRunner {
@@ -27,11 +28,6 @@ public class Loader implements ApplicationRunner {
 
     @Autowired
     private MidiaService midiaService;
-
-    private LocalDate convertDate(String value) {
-        String[] values = value.split("-");
-        return LocalDate.of(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]));
-    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -46,50 +42,52 @@ public class Loader implements ApplicationRunner {
             switch (campos[0].toUpperCase()) {
                 case "F": {// Filme {
                     Filme filme = new Filme();
-                    filme.setNome(campos[1]);
-                    filme.setMediaAvaliacao(Float.parseFloat(campos[3]));
-                    filme.setVendasPorAno(Integer.parseInt(campos[4]));
-                    filme.setDiretor(campos[5]);
-                    filme.setDuracao(Integer.parseInt(campos[6]));
+                    filme.setId(UUID.fromString(campos[1]));
+                    filme.setNome(campos[2]);
+                    filme.setMediaAvaliacao(Float.parseFloat(campos[4]));
+                    filme.setVendasPorAno(Integer.parseInt(campos[5]));
+                    filme.setDiretor(campos[6]);
+                    filme.setDuracao(Integer.parseInt(campos[7]));
                     midiaService.createOrUpdate(filme);
                     midias.add(filme);
                     break;
                 }
                 case "L": {// Livro
                     Livro livro = new Livro();
-                    livro.setNome(campos[1]);
-                    livro.setMediaAvaliacao(Float.parseFloat(campos[3]));
-                    livro.setVendasPorAno(Integer.parseInt(campos[4]));
-                    livro.setAutor(campos[5]);
-                    livro.setPaginas(Integer.parseInt(campos[6]));
+                    livro.setId(UUID.fromString(campos[1]));
+                    livro.setNome(campos[2]);
+                    livro.setMediaAvaliacao(Float.parseFloat(campos[4]));
+                    livro.setVendasPorAno(Integer.parseInt(campos[5]));
+                    livro.setAutor(campos[6]);
+                    livro.setPaginas(Integer.parseInt(campos[7]));
                     midiaService.createOrUpdate(livro);
                     midias.add(livro);
                     break;
                 }
-                case "U": {// Usuário
+                case "U": {// Espectador
                     Espectador espectador = new Espectador();
-                    espectador.setNome(campos[1]);
-                    espectador.setEmail(campos[2]);
+                    espectador.setId(UUID.fromString(campos[1]));
+                    espectador.setNome(campos[2]);
+                    espectador.setEmail(campos[3]);
+                    if (campos.length == 5) {
+                        Endereco endereco = new Endereco();
+                        endereco.setCep(campos[4]);
+                        espectador.setEndereco(endereco);
+                    }
+                    espectadorService.createOrUpdate(espectador);
                     espectadores.add(espectador);
                     break;
                 }
                 case "MU": // EspectadorXMidia
                     String espectadorId = campos[1];
                     String midiaId = campos[2];
-
-                    Espectador espectador = espectadores.stream()
-                            .filter(u -> u.getEmail().equals(espectadorId))
-                            .findFirst()
-                            .orElse(null);
-                    Midia midia = midias.stream()
-                            .filter(m -> m.getNome().equals(midiaId))
-                            .findFirst()
-                            .orElse(null);
+                    Espectador espectador = espectadorService.findById(UUID.fromString(espectadorId));
+                    Midia midia = midiaService.findById(UUID.fromString(midiaId));
                     if (espectador != null && midia != null) {
                         var midiasEspectador = espectador.getMidias();
-
                         midiasEspectador.add(midia);
                         espectador.setMidias(midiasEspectador);
+                        espectadorService.createOrUpdate(espectador);
                     }
 
                     break;
@@ -98,9 +96,6 @@ public class Loader implements ApplicationRunner {
                     break;
             }
             linha = leitura.readLine();
-        }
-        for (Espectador espectador : espectadores) {
-            espectadorService.createOrUpdate(espectador);            
         }
         leitura.close();
     }

@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,11 +24,9 @@ import lombok.Setter;
 @Table(name = "midias")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
+@DynamicUpdate
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Midia implements INamedModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Midia extends BaseModel implements INamedModel {
 
     @NotBlank(message = "O nome da mídia é obrigatório.")
     @Size(min = 3, max = 50, message = "O nome da mídia deve ter entre 3 e 50 caracteres.")
@@ -39,7 +39,7 @@ public class Midia implements INamedModel {
     @Column()
     private int vendasPorAno;
     
-    @ManyToMany(mappedBy = "midias", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "midias", fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JsonBackReference
     private Set<Espectador> espectadores = new HashSet<Espectador>();
 }
