@@ -7,6 +7,7 @@ O usuario do aplicativo, chamado de espectador, poderá associar diferentes míd
 - CRUD de Espectadores e Mídias (Livros e Filmes);
 - Validação das entidades de dominio;
 - MockData para desenvolvimento carregando automaticamente através de um loader; 
+- Busca de endereço através do CEP
 
 # Docker
 
